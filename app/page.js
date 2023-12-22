@@ -19,8 +19,8 @@ const Home = () => {
       );
       setUserInfo({
         ...userInfo,
-        ipInfo: ipResponse.data,
-        agentInfo: agentResponse.data,
+        ipInfo: ipResponse?.data,
+        agentInfo: agentResponse?.data,
       });
       setDataFetched(true);
     } catch (error) {
@@ -54,38 +54,39 @@ const Home = () => {
                   X
                 </h1>
               </div>
-              {userInfo && (
+              {userInfo?.agentInfo && userInfo?.ipInfo ? (
                 <div className="mt-10">
                   <div className="grid grid-cols-2 gap-3">
-                    <p>آدرس آیپی: {userInfo.ipInfo.query}</p>
-                    <p>شهر: {userInfo.ipInfo.city}</p>
-                    <p>استان / ایالت: {userInfo.ipInfo.regionName}</p>
-                    <p>کشور: {userInfo.ipInfo.country}</p>
+                    <p>آدرس آیپی: {userInfo?.ipInfo?.query}</p>
+                    <p>شهر: {userInfo?.ipInfo?.city}</p>
+                    <p>استان / ایالت: {userInfo?.ipInfo?.regionName}</p>
+                    <p>کشور: {userInfo?.ipInfo?.country}</p>
                     <p>
-                      کدپستی:{' '}
-                      {userInfo.ipInfo.zip == ''
+                      کدپستی:
+                      {userInfo?.ipInfo?.zip == ''
                         ? 'ناموجود'
-                        : userInfo.ipInfo.zip}
+                        : userInfo?.ipInfo?.zip}
                     </p>
-                    <p>سرویس دهنده اینترنت: {userInfo.ipInfo.isp}</p>
-                    <p>نوع دستگاه: {userInfo.agentInfo.device}</p>
-                    <p>سیستم عامل: {userInfo.agentInfo.os}</p>
-                    <p>مرورگر: {userInfo.agentInfo.userAgent}</p>
+                    <p>سرویس دهنده اینترنت: {userInfo?.ipInfo?.isp}</p>
+                    <p>نوع دستگاه: {userInfo?.agentInfo?.device}</p>
+                    <p>سیستم عامل: {userInfo?.agentInfo?.os}</p>
+                    <p>مرورگر: {userInfo?.agentInfo?.userAgent}</p>
                   </div>
-                  {userInfo.ipInfo.lat && (
-                    <div className="bg-primary mt-10 p-3 overflow-hidden rounded-2xl">
-                      <NeshanMap
-                        mapKey="web.8269ae1efaee442aac942c23eb9df7f7"
-                        center={{
-                          latitude: userInfo.ipInfo.lat,
-                          longitude: userInfo.ipInfo.lon,
-                        }}
-                        zoom={13}
-                        className="h-[200px] md:h-[450px] rounded-2xl"
-                      />
-                    </div>
-                  )}
+
+                  <div className="bg-primary mt-10 p-3 overflow-hidden rounded-2xl">
+                    <NeshanMap
+                      mapKey="web.8269ae1efaee442aac942c23eb9df7f7"
+                      center={{
+                        latitude: userInfo?.ipInfo?.lat,
+                        longitude: userInfo?.ipInfo?.lon,
+                      }}
+                      zoom={13}
+                      className="h-[200px] md:h-[450px] rounded-2xl"
+                    />
+                  </div>
                 </div>
+              ) : (
+                <></>
               )}
             </div>
           ) : (
