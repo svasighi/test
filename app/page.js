@@ -15,7 +15,7 @@ const Home = () => {
         `http://ip-api.com/json/?fields=61439`
       );
       const agentResponse = await axios.get(
-        `https://api.bigdatacloud.net/data/client-info`
+        `https://api.bigdatacloud.net/data/client-info/`
       );
       setUserInfo({
         ...userInfo,
