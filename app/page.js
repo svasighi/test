@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import NeshanMap from '@neshan-maps-platform/react-openlayers';
 import Image from 'next/image';
 
-const Home = ({ data }) => {
+const Home = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [dataFetched, setDataFetched] = useState(false);
   const fetchData = async () => {
