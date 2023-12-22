@@ -77,10 +77,10 @@ const Home = () => {
                     <NeshanMap
                       mapKey="web.8269ae1efaee442aac942c23eb9df7f7"
                       center={{
-                        latitude: userInfo?.ipInfo?.lat ?? 35.7219,
-                        longitude: userInfo?.ipInfo?.lon ?? 51.3347,
+                        latitude: userInfo?.ipInfo?.lat ?? 37.4316,
+                        longitude: userInfo?.ipInfo?.lon ?? 78.6569,
                       }}
-                      zoom={13}
+                      zoom={userInfo?.ipInfo?.country != 'Iran' ? 3 : 13}
                       className="h-[200px] md:h-[450px] rounded-2xl"
                     />
                   </div>
