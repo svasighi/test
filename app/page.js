@@ -16,8 +16,9 @@ const Home = () => {
       const agentResponse = await axios.get(
         `https://api.bigdatacloud.net/data/client-info/`
       );
+
       const ipResponse = await axios.get(
-        `https://api.findip.net/${agentResponse?.data?.ipstring}/?token=150eeda627614e019834c6a882fcb368`
+        `https://api.findip.net/${agentResponse?.data?.ipString}/?token=150eeda627614e019834c6a882fcb368`
       );
       setUserInfo({
         ...userInfo,
@@ -61,17 +62,18 @@ const Home = () => {
               {userInfo?.agentInfo && userInfo?.ipInfo ? (
                 <div className="mt-10">
                   <div className="grid grid-cols-2 gap-3 text-xl">
-                    <p>آدرس آیپی: {userInfo?.ipInfo?.query}</p>
-                    <p>شهر: {userInfo?.ipInfo?.city}</p>
-                    <p>استان / ایالت: {userInfo?.ipInfo?.regionName}</p>
-                    <p>کشور: {userInfo?.ipInfo?.country}</p>
+                    <p>آدرس آیپی: {userInfo?.agentInfo?.ipString}</p>
+                    <p>شهر: {userInfo?.ipInfo?.city?.names?.fa}</p>
                     <p>
-                      کدپستی:
-                      {userInfo?.ipInfo?.zip == ""
-                        ? "ناموجود"
-                        : userInfo?.ipInfo?.zip}
+                      استان / ایالت:{" "}
+                      {userInfo?.ipInfo?.subdivisions[0].names.fa}
                     </p>
-                    <p>سرویس دهنده اینترنت: {userInfo?.ipInfo?.isp}</p>
+                    <p>کشور: {userInfo?.ipInfo?.country.names.fa}</p>
+                    <p>
+                      نوع اتصال:
+                      {userInfo?.ipInfo?.traits?.connection_type}
+                    </p>
+                    <p>سرویس دهنده اینترنت: {userInfo?.ipInfo?.traits?.isp}</p>
                     <p>نوع دستگاه: {userInfo?.agentInfo?.device}</p>
                     <p>سیستم عامل: {userInfo?.agentInfo?.os}</p>
                     <p>مرورگر: {userInfo?.agentInfo?.userAgent}</p>
@@ -86,10 +88,11 @@ const Home = () => {
                           poi: true,
                           traffic: false,
                           center: [
-                            userInfo?.ipInfo?.lat ?? 35.699739,
-                            userInfo?.ipInfo?.lon ?? 51.338097,
+                            userInfo?.ipInfo?.location?.latitude ?? 35.699739,
+                            userInfo?.ipInfo?.location?.longitude ?? 51.338097,
                           ],
-                          zoom: userInfo?.ipInfo?.country != "Iran" ? 3 : 13,
+                          zoom:
+                            userInfo?.ipInfo?.country.iso_doce != "IR" ? 3 : 13,
                         }}
                         className="h-[200px] md:h-[450px] rounded-2xl"
                       />
