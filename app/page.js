@@ -18,7 +18,7 @@ const Home = () => {
       );
 
       const ipResponse = await axios.get(
-        `https://api.findip.net/${agentResponse?.data?.ipString}/?token=150eeda627614e019834c6a882fcb368`
+        `https://uixstore.ir/iplocation.php?ip=${agentResponse?.data?.ipString}`
       );
       setUserInfo({
         ...userInfo,
