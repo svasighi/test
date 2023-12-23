@@ -12,11 +12,12 @@ const Home = () => {
   const fetchData = async () => {
     try {
       setDataFetched(false);
-      const ipResponse = await axios.get(
-        `http://ip-api.com/json/?fields=61439`
-      );
+
       const agentResponse = await axios.get(
         `https://api.bigdatacloud.net/data/client-info/`
+      );
+      const ipResponse = await axios.get(
+        `https://api.findip.net/${agentResponse?.data?.ipstring}/?token=150eeda627614e019834c6a882fcb368`
       );
       setUserInfo({
         ...userInfo,
