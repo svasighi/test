@@ -97,7 +97,7 @@ const Home = () => {
                             userInfo?.ipInfo?.location?.longitude ?? 51.338097,
                           ],
                           zoom:
-                            userInfo?.ipInfo?.country.iso_doce != "IR" ? 3 : 13,
+                            userInfo?.ipInfo?.country.iso_code != "IR" ? 3 : 13,
                         }}
                         className="h-[200px] md:h-[450px] rounded-2xl"
                       />
@@ -124,7 +124,7 @@ const Home = () => {
                 onClick={fetchData}
               >
                 {isLoading ? (
-                <>
+                <div className="flex items-center">
                   <svg
                     class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                     xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +146,7 @@ const Home = () => {
                     ></path>
                   </svg>
                     درحال بارگذاری
-                      </>                
+                      </div>                
                   ) : (
                   "بررسی🔎"
                 )}
