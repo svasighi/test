@@ -9,16 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@neshan-maps-platform/ol": "^1.0.5",
+    "@neshan-maps-platform/react-openlayers": "^3.0.1",
+    "@types/ol": "^5.3.8",
     "autoprefixer": "10.4.16",
     "axios": "^1.6.2",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
+    "leaflet": "^1.9.4",
     "next": "13.5.6",
     "node-fetch": "^3.3.2",
     "postcss": "8.4.32",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-leaflet": "^4.2.1",
     "react-neshan-map-leaflet": "^1.2.1",
+    "react-neshan-map-openlayers": "^1.0.3",
     "tailwindcss": "3.4.0"
   }
 }
