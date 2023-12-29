@@ -1,23 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  CircleMarker,
-} from 'react-leaflet';
+
 import Image from 'next/image';
 import closeIcon from '@/public/close.svg';
-import 'leaflet/dist/leaflet.css';
 
 const Home = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [dataFetched, setDataFetched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isFinishedEveryThing, setIsFinishedEveryThing] = useState(false);
+  const [Client, setClient] = useState();
+
+  useEffect(() => {
+    (async () => {
+      if (typeof global.window !== 'undefined') {
+        const newClient = (await import('@/components/Map')).default;
+        setClient(() => newClient);
+      }
+    })();
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -128,47 +131,10 @@ const Home = () => {
                         </svg>
                         درحال بررسی موقعیت مکانی برحسب IP
                       </div>
+                    ) : typeof global.window !== 'undefined' && Client ? (
+                      <Client userInfo={userInfo} />
                     ) : (
-                      <MapContainer
-                        center={[
-                          userInfo?.ipInfo?.country.iso_code == 'IR'
-                            ? 35.702163
-                            : userInfo?.ipInfo?.location?.latitude,
-                          userInfo?.ipInfo?.country.iso_code == 'IR'
-                            ? 51.400671
-                            : userInfo?.ipInfo?.location?.longitude,
-                        ]}
-                        zoom={18}
-                        scrollWheelZoom={false}
-                        className="h-[400px]">
-                        <TileLayer
-                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        <CircleMarker
-                          center={[
-                            userInfo?.ipInfo?.country.iso_code == 'IR'
-                              ? 35.702163
-                              : userInfo?.ipInfo?.location?.latitude,
-                            userInfo?.ipInfo?.country.iso_code == 'IR'
-                              ? 51.400671
-                              : userInfo?.ipInfo?.location?.longitude,
-                          ]}
-                          pathOptions={{ color: 'red' }}
-                          radius={50}>
-                          <Popup>موقعیت مکانی برحسب ip</Popup>
-                        </CircleMarker>
-                        <Marker
-                          // icon={myIcon}
-                          position={[
-                            userInfo?.ipInfo?.country.iso_code == 'IR'
-                              ? 35.702163
-                              : userInfo?.ipInfo?.location?.latitude,
-                            userInfo?.ipInfo?.country.iso_code == 'IR'
-                              ? 51.400671
-                              : userInfo?.ipInfo?.location?.longitude,
-                          ]}></Marker>
-                      </MapContainer>
+                      <></>
                     )}
                   </div>
                 </div>
